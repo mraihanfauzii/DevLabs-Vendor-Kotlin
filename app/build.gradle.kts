@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("kotlin-android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -37,6 +39,7 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        dataBinding = true
     }
 }
 
@@ -78,7 +81,23 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-common-java8:2.7.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0")
 
-    // save dark and light themes with datastore
+    // Save dark and light themes with datastore
     implementation ("androidx.datastore:datastore-preferences-core:1.1.1")
     implementation ("androidx.datastore:datastore-preferences:1.1.1")
+
+    // ROOM DAO penyimpanan internal
+    implementation ("androidx.room:room-runtime:2.6.1")
+    annotationProcessor ("androidx.room:room-compiler:2.6.1")
+    androidTestImplementation ("androidx.room:room-testing:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
+
+    // Map
+    implementation ("com.google.android.gms:play-services-maps:19.0.0")
+    implementation ("com.google.android.gms:play-services-location:21.3.0")
+    implementation ("com.google.android.libraries.places:places:3.5.0")
+    implementation ("com.google.maps:google-maps-services:0.17.0")
+
+    // Youtube
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 }

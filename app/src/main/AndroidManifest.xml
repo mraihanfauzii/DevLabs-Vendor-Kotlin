@@ -13,12 +13,48 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/devlabs_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DevLabsVendor"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.main.home.DetailArticleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.home.ArticleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.construction.InputDesignOrProgressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.construction.ConstructionDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.architect.DetailPortfolioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.architect.ArchitectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.profile.favorite.FavoriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.home.InputDesignOrProgressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.home.ConstructionDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.profile.RatingHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.profile.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.profile.CameraActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.SplashScreenActivity"
             android:exported="true">
@@ -47,7 +83,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

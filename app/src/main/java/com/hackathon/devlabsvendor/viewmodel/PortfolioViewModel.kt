@@ -1,25 +1,25 @@
 package com.hackathon.devlabsvendor.viewmodel
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.hackathon.devlabsvendor.api.ApiConfig
+import com.hackathon.devlabsvendor.model.AddPortfolioData
 import com.hackathon.devlabsvendor.model.AddPortfolioRequest
-import com.hackathon.devlabsvendor.model.AddPortfolioResponse
+import com.hackathon.devlabsvendor.model.ApiResponse
 import com.hackathon.devlabsvendor.model.DeleteResponse
-import com.hackathon.devlabsvendor.model.GetPortfolioResponse
+import com.hackathon.devlabsvendor.model.Portfolio
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PortfolioViewModel(application: Application) : AndroidViewModel(application) {
-    private val _addPortfolio = MutableLiveData<AddPortfolioResponse>()
-    val addPortfolio : LiveData<AddPortfolioResponse> = _addPortfolio
+class PortfolioViewModel : ViewModel() {
+    private val _addPortfolio = MutableLiveData<ApiResponse<AddPortfolioData>>()
+    val addPortfolio : LiveData<ApiResponse<AddPortfolioData>> = _addPortfolio
 
-    private val _getPortfolio = MutableLiveData<GetPortfolioResponse>()
-    val getPortfolio : LiveData<GetPortfolioResponse> = _getPortfolio
+    private val _getPortfolio = MutableLiveData<ApiResponse<List<Portfolio>>>()
+    val getPortfolio : LiveData<ApiResponse<List<Portfolio>>> = _getPortfolio
 
     private val _deletePortfolio = MutableLiveData<DeleteResponse>()
     val deletePortfolio : LiveData<DeleteResponse> = _deletePortfolio
@@ -33,10 +33,10 @@ class PortfolioViewModel(application: Application) : AndroidViewModel(applicatio
     fun addPortfolio(token: String, addPortfolioRequest: AddPortfolioRequest){
         _isLoading.value = true
         ApiConfig.getApiService().addPortfolio(token, addPortfolioRequest).enqueue(object :
-            Callback<AddPortfolioResponse> {
+            Callback<ApiResponse<AddPortfolioData>> {
             override fun onResponse(
-                call: Call<AddPortfolioResponse>,
-                response: Response<AddPortfolioResponse>
+                call: Call<ApiResponse<AddPortfolioData>>,
+                response: Response<ApiResponse<AddPortfolioData>>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -46,7 +46,7 @@ class PortfolioViewModel(application: Application) : AndroidViewModel(applicatio
                 }
             }
 
-            override fun onFailure(call: Call<AddPortfolioResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<AddPortfolioData>>, t: Throwable) {
                 _isLoading.value = false
                 Log.e("RegisterViewModel", "onFailure: ${t.message.toString()}")
             }
@@ -55,10 +55,10 @@ class PortfolioViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun getPortfolio(token: String, architectId: String){
         _isLoading.value = true
-        ApiConfig.getApiService().getPortfolio(token, architectId).enqueue(object : Callback<GetPortfolioResponse> {
+        ApiConfig.getApiService().getPortfolio(token, architectId).enqueue(object : Callback<ApiResponse<List<Portfolio>>> {
             override fun onResponse(
-                call: Call<GetPortfolioResponse>,
-                response: Response<GetPortfolioResponse>
+                call: Call<ApiResponse<List<Portfolio>>>,
+                response: Response<ApiResponse<List<Portfolio>>>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -69,7 +69,7 @@ class PortfolioViewModel(application: Application) : AndroidViewModel(applicatio
                 }
             }
 
-            override fun onFailure(call: Call<GetPortfolioResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<List<Portfolio>>>, t: Throwable) {
                 _isLoading.value = false
                 Log.e("LoginViewModel", "onFailure: ${t.message.toString()}")
                 _errorMessage.value = "Error, Failed to load Product"

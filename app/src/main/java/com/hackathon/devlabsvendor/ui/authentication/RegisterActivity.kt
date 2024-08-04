@@ -42,7 +42,7 @@ class RegisterActivity : AppCompatActivity() {
                     email = email,
                     phoneNumber = nomorTelepon,
                     password = password,
-                    role = "client"
+                    role = "architect"
                 )
                 if (passwordConf == password) {
                     if (email.isNotEmpty() && password.isNotEmpty() && fullName.isNotEmpty() && passwordConf.isNotEmpty()) {
@@ -58,8 +58,8 @@ class RegisterActivity : AppCompatActivity() {
                     } else if(email.isEmpty() || password.isEmpty() || fullName.isEmpty() || passwordConf.isEmpty()) {
                         Toast.makeText(this@RegisterActivity, "Semua inputan harus diisi!", Toast.LENGTH_SHORT).show()
                     }
-                } else if (password.length < 7 || passwordConf.length < 7)
-                    Toast.makeText(this@RegisterActivity, "Password tidak boleh kurang dari 6 karakter!", Toast.LENGTH_SHORT).show()
+                } else if (password.length < 8 || passwordConf.length < 8)
+                    Toast.makeText(this@RegisterActivity, "Password tidak boleh kurang dari 8 karakter!", Toast.LENGTH_SHORT).show()
                 else {
                     Toast.makeText(this@RegisterActivity, "Kata sandi konfirmasi harus sama dengan kata sandi!", Toast.LENGTH_SHORT).show()
                 }
