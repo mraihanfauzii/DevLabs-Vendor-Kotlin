@@ -15,8 +15,8 @@ import com.hackathon.devlabsvendor.adapter.home.VideoAdapter
 import com.hackathon.devlabsvendor.adapter.home.article.ArticleHomeAdapter
 import com.hackathon.devlabsvendor.databinding.FragmentHomeBinding
 import com.hackathon.devlabsvendor.model.Article
-import com.hackathon.devlabsvendor.ui.ChatActivity
 import com.hackathon.devlabsvendor.ui.authentication.AuthenticationManager
+import com.hackathon.devlabsvendor.ui.main.message.LastMessageActivity
 import com.hackathon.devlabsvendor.utils.ArticleDataDummy
 import com.hackathon.devlabsvendor.viewmodel.HomeViewModel
 
@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnChat.setOnClickListener {
-            val intent = Intent(context, ChatActivity::class.java)
+            val intent = Intent(context, LastMessageActivity::class.java)
             startActivity(intent)
         }
 

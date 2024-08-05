@@ -6,6 +6,7 @@ import com.hackathon.devlabsvendor.model.AddPortfolioData
 import com.hackathon.devlabsvendor.model.AddPortfolioRequest
 import com.hackathon.devlabsvendor.model.ApiResponse
 import com.hackathon.devlabsvendor.model.DeleteResponse
+import com.hackathon.devlabsvendor.model.LastMessage
 import com.hackathon.devlabsvendor.model.LoginData
 import com.hackathon.devlabsvendor.model.LoginRequest
 import com.hackathon.devlabsvendor.model.Message
@@ -58,14 +59,19 @@ interface ApiService {
         @Part profile_picture: MultipartBody.Part
     ): Call<ApiResponse<UpdateProfileData>>
 
-    @GET("users/login")
+    @GET("messages/last")
+    fun getLastMessage (
+        @Header("Authorization") token: String,
+    ): Call<ApiResponse<List<LastMessage>>>
+
+    @GET("messages")
     fun getMessage (
         @Header("Authorization") token: String,
         @Query("first_user_id") firstUserId: String,
         @Query("second_user_id") secondUserId: String,
     ): Call<ApiResponse<List<Message>>>
 
-    @POST("users/login")
+    @POST("messages")
     fun addMessage (
         @Header("Authorization") token: String,
         @Body addMessageRequest: AddMessageRequest

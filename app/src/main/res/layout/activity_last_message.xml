@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ChatActivity"
+    tools:context=".ui.main.message.LastMessageActivity"
     android:background="@drawable/chat_background">
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivUserProfile"
         android:layout_width="82dp"
@@ -17,7 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
-
     <TextView
         android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
@@ -31,7 +29,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.487"
         tools:text="TextView" />
-
     <TextView
         android:id="@+id/tvUserUsername"
         android:layout_width="wrap_content"
@@ -43,7 +40,6 @@
         app:layout_constraintEnd_toEndOf="@+id/tvUserName"
         app:layout_constraintStart_toStartOf="@+id/tvUserName"
         app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_chat"
         android:layout_width="match_parent"
@@ -54,7 +50,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvUserUsername" />
-
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -65,5 +60,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
