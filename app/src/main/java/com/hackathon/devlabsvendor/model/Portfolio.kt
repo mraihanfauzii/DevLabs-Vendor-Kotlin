@@ -29,6 +29,18 @@ data class Portfolio(
     val createdAt: String,
     @field:SerializedName("click_count")
     val clickCount: String
+    val attachments: List<Attachments>?
+) : Parcelable
+
+@Parcelize
+data class Attachments(
+    val id: String,
+    @field:SerializedName("portfolio_id")
+    val portfolioId: String,
+    val name: String,
+    val path: String,
+    @field:SerializedName("created_at")
+    val createdAt: String
 ) : Parcelable
 
 @Parcelize

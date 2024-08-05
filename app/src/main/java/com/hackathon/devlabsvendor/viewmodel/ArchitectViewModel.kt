@@ -8,13 +8,15 @@ import com.hackathon.devlabsvendor.api.ApiConfig
 import com.hackathon.devlabsvendor.model.AddPortfolioData
 import com.hackathon.devlabsvendor.model.AddPortfolioRequest
 import com.hackathon.devlabsvendor.model.ApiResponse
+import com.hackathon.devlabsvendor.model.AverageRating
 import com.hackathon.devlabsvendor.model.DeleteResponse
 import com.hackathon.devlabsvendor.model.Portfolio
+import com.hackathon.devlabsvendor.model.Rating
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PortfolioViewModel : ViewModel() {
+class ArchitectViewModel : ViewModel() {
     private val _addPortfolio = MutableLiveData<ApiResponse<AddPortfolioData>>()
     val addPortfolio : LiveData<ApiResponse<AddPortfolioData>> = _addPortfolio
 
@@ -23,6 +25,12 @@ class PortfolioViewModel : ViewModel() {
 
     private val _deletePortfolio = MutableLiveData<DeleteResponse>()
     val deletePortfolio : LiveData<DeleteResponse> = _deletePortfolio
+
+    private val _ratings = MutableLiveData<List<Rating>>()
+    val ratings: LiveData<List<Rating>> = _ratings
+
+    private val _ratingsAverage = MutableLiveData<AverageRating>()
+    val ratingsAverage : LiveData<AverageRating> = _ratingsAverage
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -95,6 +103,44 @@ class PortfolioViewModel : ViewModel() {
             override fun onFailure(call: Call<DeleteResponse>, t: Throwable) {
                 _isLoading.value = false
                 Log.e("PortfolioViewModel", "onFailure: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun getRatings(token: String, architectId: String) {
+        _isLoading.value = true
+        ApiConfig.getApiService().getRatings(token, architectId).enqueue(object : Callback<ApiResponse<List<Rating>>> {
+            override fun onResponse(call: Call<ApiResponse<List<Rating>>>, response: Response<ApiResponse<List<Rating>>>) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _ratings.value = response.body()?.data ?: emptyList()
+                } else {
+                    _errorMessage.value = response.message()
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<List<Rating>>>, t: Throwable) {
+                _isLoading.value = false
+                _errorMessage.value = t.message
+            }
+        })
+    }
+
+    fun getRatingsAverage(token: String, architectId: String) {
+        _isLoading.value = true
+        ApiConfig.getApiService().getRatingsAverage(token, architectId).enqueue(object : Callback<ApiResponse<AverageRating>> {
+            override fun onResponse(call: Call<ApiResponse<AverageRating>>, response: Response<ApiResponse<AverageRating>>) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _ratingsAverage.value = response.body()?.data
+                } else {
+                    _errorMessage.value = response.message()
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<AverageRating>>, t: Throwable) {
+                _isLoading.value = false
+                _errorMessage.value = t.message
             }
         })
     }
